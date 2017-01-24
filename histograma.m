@@ -1,4 +1,11 @@
-l=5;
+
+l=3; % mitad del espacio
+p=1.5; % valor del número de salto
+
+k=((2*l)/p)+1; % número de valores permitidos a través del espacio
+
+
+
 
 
 %tamaño de coordenadas
