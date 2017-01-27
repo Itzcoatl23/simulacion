@@ -3,8 +3,8 @@
 
 l=3; % mitad del espacio
 p=1.5; % valor del número de salto
-n=5; % filas / numero de partículas
-d=2; % columnas / dimensión
+n=100; % filas / numero de partículas
+d=1; % columnas / dimensión
 archivo="datos.txt";
 
 
