@@ -52,5 +52,5 @@ endfor
 hist(distancias)
 
 fid=fopen(archivo,"w");
-fprintf('%2.5f\n',distancias);
+fprintf(fid,'%2.5f\n',distancias);
 fclose(fid);
