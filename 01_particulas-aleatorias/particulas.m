@@ -4,8 +4,7 @@
 l=3; % mitad del espacio
 p=1.5; % valor del número de salto
 n=5; % filas / numero de partículas
-d=2; % columnas / dimensión
-archivo="datos.txt";
+d=1; % columnas / dimensión
 
 
 %  Número de valores permitidos a través
@@ -47,10 +46,7 @@ for i=1:n
   distancias(i,1)=sqrt(sum((particulas(i,:).^2)));
 endfor
 
+
 %///  distancias
 
-hist(distancias)
-
-fid=fopen(archivo,"w");
-fprintf('%2.5f\n',distancias);
-fclose(fid);
+%///  hist(distancias)
