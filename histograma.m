@@ -1,8 +1,8 @@
 
 %  VARIABLES
 
-l=3; % mitad del espacio
-p=1.5; % valor del número de salto
+l=9; % mitad del espacio
+p=0.5; % valor del número de salto
 n=100; % filas / numero de partículas
 d=1; % columnas / dimensión
 archivo="datos.txt";
@@ -22,7 +22,7 @@ k=((2*l)/p)+1;
 %  en función de la cantidad de
 %  valores permitidos.
 
-particulas=round(unifrnd(1,k,n,d));
+particulas=randi([1 k],n,d);
 
 
 %///  particulas
@@ -33,7 +33,7 @@ particulas=round(unifrnd(1,k,n,d));
 
 for i=1:n
   for j=1:d
-    particulas(i,j)=((particulas(i,j)-1)*p-l);
+    particulas(i,j)=(((particulas(i,j)-1)*p)-l);
   endfor
 endfor
 
