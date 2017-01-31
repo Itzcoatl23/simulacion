@@ -51,6 +51,12 @@ endfor
 
 hist(distancias)
 
+
+%{
+  Se genera un archivo de texto
+  guardando las distancias
+%}
+
 fid=fopen(archivo,"w");
 fprintf(fid,'%2.5f\n',distancias);
 fclose(fid);
