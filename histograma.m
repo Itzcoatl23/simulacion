@@ -1,9 +1,9 @@
 
 %  VARIABLES
 
-l=9; % mitad del espacio
-p=0.5; % valor del número de salto
-n=100; % filas / numero de partículas
+l=3; % mitad del espacio
+p=1.5; % valor del número de salto
+n=1000; % filas / numero de partículas
 d=1; % columnas / dimensión
 archivo="datos.txt";
 
@@ -22,10 +22,10 @@ k=((2*l)/p)+1;
 %  en función de la cantidad de
 %  valores permitidos.
 
-particulas=randi([1 k],n,d);
+particulas=round(unifrnd(1,k,n,d));
+%particulas=randi([1 k],n,d);
 
-
-%///  particulas
+%particulas
 
 
 %  Se asigna el valor real en el espacio
@@ -37,7 +37,7 @@ for i=1:n
   endfor
 endfor
 
-%/// particulas
+ %particulas
 
 %  Se calcula la distancia al origen
 %  y se guardan los valores
