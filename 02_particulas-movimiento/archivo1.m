@@ -1,5 +1,5 @@
-x=20;
-tiempos=5;
+x=20
+tiempos=10;
 
 
 
