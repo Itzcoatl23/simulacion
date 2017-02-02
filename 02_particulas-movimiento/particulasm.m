@@ -4,7 +4,7 @@
 l=10; % mitad del espacio
 p=2; % valor del número de salto
 n=3; % filas / numero de partículas
-d=1; % columnas / dimensión
+d=2; % columnas / dimensión
 archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
 tiempos=3; %numero de tiempo corriendo la simulacion
 
@@ -42,6 +42,7 @@ particulas
 % de movimiento.
 dataset = [-1;1];
 
+for t=1:tiempos
 % Para cada partícula:
 for i=1:n
 
@@ -64,10 +65,23 @@ for i=1:n
       % y se le suma al valor
       % de la coordenada.
       particulas(i,dimension)=particulas(i,dimension)+dataset(randi([1 2],1,1));
+
   endif
 endfor
 
+
+plot(particulas(:,1),particulas(:,2),'*','markersize', 13);
+xlim([1,11]);
+ylim([1,11]);
+saveas(gcf, ['figure_' num2str(tiempos) ], 'jpeg');
+
+
+endfor
 particulas
+%axis([0,11,0,11], 'particulas')
+
+
+
 
 % FUNCION MOVIMIENTO
 % ####################################
