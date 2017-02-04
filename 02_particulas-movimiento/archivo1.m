@@ -1,32 +1,9 @@
-x=20
-tiempos=10;
-
-
-
-for i=1:tiempos
-
-  paso=randi([1 2],1,1);
-
-  if (paso == 1)
-      x++;
-    elseif(paso == 2)
-      x--;
-    else
-      x=x;
-  endif
-
-  x
-
-endfor
-
-
-%{
-switch paso
-case 1
-  x=x++;
-case 2
-  x=x--;
-otherwise
-  x=x;
+I = 1;
+figure
+while I <= 4
+    x=0:pi/100:2*pi;
+    y=sin(x) + I;
+    plot(x,y);
+    saveas(gcf,strcat('figure',num2str(I),'.png'));
+    I = I+1;
 end
-%}

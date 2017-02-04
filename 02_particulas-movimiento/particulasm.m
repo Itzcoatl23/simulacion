@@ -6,7 +6,7 @@ p=2; % valor del número de salto
 n=3; % filas / numero de partículas
 d=2; % columnas / dimensión
 archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
-tiempos=3; %numero de tiempo corriendo la simulacion
+tiempos=10; %numero de tiempo corriendo la simulacion
 
 
 %  Número de valores permitidos a través
@@ -30,6 +30,11 @@ particulas
 
 
 
+
+
+
+
+% ####################################
 % ####################################
 % FUNCION MOVIMIENTO
 
@@ -43,6 +48,7 @@ particulas
 dataset = [-1;1];
 
 for t=1:tiempos
+
 % Para cada partícula:
 for i=1:n
 
@@ -69,21 +75,17 @@ for i=1:n
   endif
 endfor
 
-
 plot(particulas(:,1),particulas(:,2),'*','markersize', 13);
 xlim([1,11]);
 ylim([1,11]);
-saveas(gcf, ['figure_' num2str(tiempos) ], 'jpeg');
-
+saveas(gcf,strcat('figure',num2str(t),'.png'));
 
 endfor
+
 particulas
-%axis([0,11,0,11], 'particulas')
-
-
-
 
 % FUNCION MOVIMIENTO
+% ####################################
 % ####################################
 
 
@@ -93,11 +95,9 @@ particulas
 
 
 
-
-
-
-%{
-
+% ####################################
+% ####################################
+% CAMBIO AL ESPACIO REAL
 
 
 %  Se asigna el valor real en el espacio
@@ -111,28 +111,40 @@ endfor
 
  %particulas
 
+
+ % CAMBIO AL ESPACIO REAL
+ % ####################################
+ % ####################################
+
+
+
+
+%{}
+
+
+ % ####################################
+ % ####################################
+ % FUNCION CALCULAR DISTANCIAS
+
+
 %  Se calcula la distancia al origen
 %  y se guardan los valores
 %  en 'distancias'.
-
 for i=1:n
   distancias(i,1)=sqrt(sum((particulas(i,:).^2)));
 endfor
 
-%///  distancias
-
+% Se genera un histograma con los
+% datos de las distancias.
 hist(distancias)
-
-
 
 %  Se genera un archivo de texto
 %  guardando las distancias
-
-
 fid=fopen(archivo,"w");
 fprintf(fid,'%2.5f\n',distancias);
 fclose(fid);
 
 
-
-%}
+% FUNCION CALCULAR DISTANCIAS
+% ####################################
+% ####################################
