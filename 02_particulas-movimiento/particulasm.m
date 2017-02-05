@@ -6,7 +6,7 @@ p=2; % valor del número de salto
 n=3; % filas / numero de partículas
 d=2; % columnas / dimensión
 archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
-tiempos=10; %numero de tiempo corriendo la simulacion
+tiempos=3; %numero de tiempo corriendo la simulacion
 
 
 %  Número de valores permitidos a través
@@ -26,7 +26,7 @@ k=((2*l)/p)+1;
 particulas=round(unifrnd(1,k,n,d));
 %particulas=randi([1 k],n,d);
 
-particulas
+%particulas
 
 
 
@@ -47,7 +47,7 @@ particulas
 % de movimiento.
 dataset = [-1;1];
 
-for t=1:tiempos
+for t=1:tiempos %tiempos
 
 % Para cada partícula:
 for i=1:n
@@ -75,14 +75,14 @@ for i=1:n
   endif
 endfor
 
-plot(particulas(:,1),particulas(:,2),'*','markersize', 13);
-xlim([1,11]);
-ylim([1,11]);
-saveas(gcf,strcat('figure',num2str(t),'.png'));
 
-endfor
 
-particulas
+
+%particulas
+
+
+
+
 
 % FUNCION MOVIMIENTO
 % ####################################
@@ -105,11 +105,11 @@ particulas
 
 for i=1:n
   for j=1:d
-    particulas(i,j)=(((particulas(i,j)-1)*p)-l);
+    particulasL(i,j)=(((particulas(i,j)-1)*p)-l);
   endfor
 endfor
 
- %particulas
+ particulasL
 
 
  % CAMBIO AL ESPACIO REAL
@@ -117,9 +117,20 @@ endfor
  % ####################################
 
 
+ %plot(particulasL(:,1),particulasL(:,2),'*','markersize', 13);
+ %xlim([-l,l]);
+ %ylim([-l,l]);
+ %saveas(gcf,strcat('figure',num2str(t),'.png'));
 
 
-%{}
+
+endfor %tiempos
+
+
+
+
+%{
+
 
 
  % ####################################
@@ -131,7 +142,7 @@ endfor
 %  y se guardan los valores
 %  en 'distancias'.
 for i=1:n
-  distancias(i,1)=sqrt(sum((particulas(i,:).^2)));
+  distancias(i,1)=sqrt(sum((particulasL(i,:).^2)));
 endfor
 
 % Se genera un histograma con los
@@ -148,3 +159,5 @@ fclose(fid);
 % FUNCION CALCULAR DISTANCIAS
 % ####################################
 % ####################################
+
+%}
