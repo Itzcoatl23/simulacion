@@ -1,4 +1,4 @@
-%  VARIABLES
+%  ---- VARIABLES ----
 
 l=10; % mitad del espacio
 p=2; % valor del número de salto
@@ -7,8 +7,7 @@ d=2; % columnas / dimensión
 archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
 tiempos=10; %numero de tiempo corriendo la simulacion
 
-
-
+% ---- PROGRAMA ----
 
 %  Número de valores permitidos a través
 %  del espacio:
@@ -38,80 +37,22 @@ coordenadasE = movimientoRND(coordenadasE,k,n,d);
 % al espacio de las 'l'.
 coordenadasL = ((coordenadasE-1)*p)-l;
 
-% Se guradan SOLAMENTE imagenes en 2D
+% Se grafican SOLAMENTE imagenes en 2D
 plot(coordenadasL(:,1),coordenadasL(:,2),'*','markersize', 13);
 axis([-l l -l l])
 
+% Funcion que compara todas las coordenadas
+% en busca de coordenadas repetidas.
+% Cuando exncuentra una: guarda las
+% coordenadas y la grafica sobre el plot
+% de las particulas.
+colisionAlerta(coordenadasL,n,d)
 
-
-contador=0;
-choque=[];
-% Deteccion de colisiones
-if n>1
-    for i=1:n-1
-      for j=(i+1):n
-        if (sum(coordenadasL(i,:)==coordenadasL(j,:)) == d)
-
-          contador=contador+1;
-          crash=coordenadasL(i,:); %choque individual
-          choque=[choque;crash]; %Muestra posición de colisión
-          hold on
-          plot(choque(:,1),choque(:,2),'ro','markersize',13);
-          hold off
-
-        endif
-      endfor
-    endfor
-endif
-
-contador
-choque
-
-
-
-
-
+% Se guardan las imagenes en formato .png
 saveas(gcf,strcat('figura',num2str(t),'.png'));
+
+% 'Enter' para avanzar en el tiempo
 pause();
 
 % Termina ciclo de tiempo
 endfor
-
-
-
-
-
-
-
-%{
-
-
-
- % ####################################
- % ####################################
- % FUNCION CALCULAR DISTANCIAS
-
-
-%  Se calcula la distancia al origen
-%  y se guardan los valores
-%  en 'distancias'.
-for i=1:n
-  distancias(i,1)=sqrt(sum((particulasL(i,:).^2)));
-endfor
-
-% Se genera un histograma con los
-% datos de las distancias.
-hist(distancias)
-
-%  Se genera un archivo de texto
-%  guardando las distancias
-fid=fopen(archivo,"w");
-fprintf(fid,'%2.5f\n',distancias);
-fclose(fid);
-
-
-% FUNCION CALCULAR DISTANCIAS
-% ####################################
-% ####################################
-
-%}
