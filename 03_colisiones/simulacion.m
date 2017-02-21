@@ -43,29 +43,31 @@ plot(coordenadasL(:,1),coordenadasL(:,2),'*','markersize', 13);
 axis([-l l -l l])
 
 
-
-contador=0;
-choque=[];
+% numero de colisiones en el tiempo t
+Ncolisiones=0;
+% matriz que almacena las coordenadas
+% de colision
+coordenadasCol=[];
 % Deteccion de colisiones
 if n>1
     for i=1:n-1
       for j=(i+1):n
         if (sum(coordenadasL(i,:)==coordenadasL(j,:)) == d)
 
-          contador=contador+1;
-          crash=coordenadasL(i,:); %choque individual
-          choque=[choque;crash]; %Muestra posición de colisión
+          Ncolisiones=Ncolisiones+1;
+          colision=coordenadasL(i,:); %choque individual
+          coordenadasCol=[coordenadasCol;colision]; %Muestra posición de colisión
           hold on
-          plot(choque(:,1),choque(:,2),'ro','markersize',13);
+          plot(coordenadasCol(:,1),coordenadasCol(:,2),'ro','markersize',13);
           hold off
 
         endif
       endfor
     endfor
 endif
-
-contador
-choque
+% FIN deteccion de colisiones
+Ncolisiones
+coordenadasCol
 
 
 
