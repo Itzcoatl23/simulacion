@@ -1,41 +1,29 @@
 %  VARIABLES
 
 l=10; % mitad del espacio
-p=2; % valor del numero de salto
-n=3; % filas / numero de particulas
-d=2; % columnas / dimension
+p=2; % valor del número de salto
+n=10; % filas / numero de partículas
+d=2; % columnas / dimensión
 archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
 tiempos=10; %numero de tiempo corriendo la simulacion
 
 
 
 
-%  Numero de valores permitidos a traves
+%  Número de valores permitidos a través
 %  del espacio:
 k=((2*l)/p)+1;
 
 %  Se define una matriz 'coordenadasE'
-%  que reune las coordenadas de cada particulas.
-%  Una por cada fila.
-%  Las particulas se generan aleatoreamente
-%  en funcion de la cantidad de
+%  que reune las coordenadas de cada partícula,
+%  una por cada fila.
+%  Las partículas se generan aleatoreamente
+%  en función de la cantidad de
 %  valores permitidos.
 coordenadasE=round(unifrnd(1,k,n,d));
 % OTRA OPCION que genera numeros enteros:
 % coordenadasE=randi([1 k],n,d);
 
-% Se grafica la primera posicion de las particulas
-coordenadasL = ((coordenadasE-1)*p)-l;
-figure(1)
-plot(coordenadasL(:,1),coordenadasL(:,2),'b*')
-axis([-l l -l l])
-hold on
-plot([0],[0],'ro')
-hold off
-% comando para graficar paso por paso
-vh = get(gca,'children');
-
-pause()
 % Empieza ciclo de tiempo
 for t=1:tiempos
 
@@ -50,27 +38,41 @@ coordenadasE = movimientoRND(coordenadasE,k,n,d);
 % al espacio de las 'l'.
 coordenadasL = ((coordenadasE-1)*p)-l;
 
-% comando para graficar paso por paso
-set(vh, 'xdata',coordenadasL(:,1), 'ydata',coordenadasL(:,2));
-hold on
-plot([0],[0],'ro')
-hold off
-
-% si no hay nada dentro del parentesis
-% de pause
-% se tiene que presionar enter en la
-% consola para que el movimiento suceda
-% ctr c para detener el programa
-pause(0.2);
-
-
-
 % Se guradan SOLAMENTE imagenes en 2D
-%plot(coordenadasL(:,1),coordenadasL(:,2),'*','markersize', 13);
-%axis([-l l -l l])
-%xlim([-l,l]);
-%ylim([-l,l]);
-%saveas(gcf,strcat('figura',num2str(t),'.png'));
+plot(coordenadasL(:,1),coordenadasL(:,2),'*','markersize', 13);
+axis([-l l -l l])
+
+
+
+contador=0;
+choque=[];
+% Deteccion de colisiones
+if n>1
+    for i=1:n-1
+      for j=(i+1):n
+        if (sum(coordenadasL(i,:)==coordenadasL(j,:)) == d)
+
+          contador=contador+1;
+          crash=coordenadasL(i,:); %choque individual
+          choque=[choque;crash]; %Muestra posición de colisión
+          hold on
+          plot(choque(:,1),choque(:,2),'ro','markersize',13);
+          hold off
+
+        endif
+      endfor
+    endfor
+endif
+
+contador
+choque
+
+
+
+
+
+saveas(gcf,strcat('figura',num2str(t),'.png'));
+pause();
 
 % Termina ciclo de tiempo
 endfor

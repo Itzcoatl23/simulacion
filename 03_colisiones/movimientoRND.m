@@ -4,7 +4,7 @@ function [coordenadasE] = movimientoRND(coordenadasE,k,n,d)
   % de movimiento.
   dataset = [-1;1];
 
-  % Para cada particula
+  % Para cada partícula:
   for i=1:n
 
     % Se elige una coordenada al azar.
