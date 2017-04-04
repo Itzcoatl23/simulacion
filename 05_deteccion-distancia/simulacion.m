@@ -8,6 +8,10 @@ archivo="datos.txt"; % nombre del archivo donde se guardan las distancias
 tiempos=10; %numero de tiempo corriendo la simulacion
 colisiones=zeros(n);% matriz de colisiones......
 energia=randi([1 10],n,1); % matriz de la energia ......
+r=5; % Umbral de detección para colisiones
+
+
+
 % ---- PROGRAMA ----
 
 %  Número de valores permitidos a través
@@ -53,11 +57,16 @@ colisionAlerta(coordenadasL,n,d,t)
 % las colisiones en cada tiempo t.
 P_colisionando=[];
 
+
+
+%{
+% ---- INICIO / COLISION DETECTADA ----
+
 % Funcion que detecta cuales son las
 % particulas que estan participando en
 % una colision.
 % Devuelve la fila en la que se encuentran
-% en el vector coordenadasL.
+% en el vector 'coordenadasL'.
 P_colisionando = P_col_puntual(n,coordenadasL,d,colisiones,P_colisionando);
 
 % Funcion que reparte de manera equitativa
@@ -65,11 +74,31 @@ P_colisionando = P_col_puntual(n,coordenadasL,d,colisiones,P_colisionando);
 % participan en una colision.
 energia = reparteEnergia(P_colisionando,energia);
 
-% Para visualizar cuales particulas
-% estan colisionando y la energia
-% despues de la colision:
-P_colisionando
+% ---- FINAL / COLISION DETECTADA ----
+%}
+
+
 energia
+
+
+% ---- INICIO / COLISION DETECTADA A DISTANCIA ----
+
+% Funcion que mide la distancia entre
+% particulas, regresa la fila en la
+% que se encuentran en el vector
+% 'coordenadasL' si el umbral de deteccion
+% 'r' es superado.
+P_colisionando = P_col_distancia(n,coordenadasL,r,P_colisionando);
+
+% Funcion que reparte de manera equitativa
+% la energia de las particulas que
+% participan en una colision a distancia.
+energia = reparteEnergia_distancia(P_colisionando,energia)
+
+% ---- FINAL / COLISION DETECTADA A DISTANCIA ----
+
+
+
 
 % Se guardan las imagenes en formato .png
 %saveas(gcf,strcat('figura',num2str(t),'.png'));
