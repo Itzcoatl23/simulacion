@@ -12,6 +12,22 @@ pasos = 10; % numero de pasos que daran los electrones.
 resolucion = 20; % resolucion de las celdas.
 espacio = 100; % tamaño del espacio.
 desorden = 10; % Grado de desorden en las celdas.
+voltaje = 0;
+
+% Ecuacion de corriente con
+% respecto al voltaje
+sigma_s = 10e-6;
+sigma_g = 1;
+s = 20;
+V_b = 1;
+% Rango para ver toda la curva de 0 a 2
+V = [0:0.01:1];
+I_v = 0.1+(V*sigma_s)+(0.5*V*sigma_g).*(1+tanh(s*(V-V_b)));
+% valor máximo de corriente I_v(101)=0.60001
+
+
+
+
 
 
 
@@ -148,79 +164,108 @@ electrones = [4]
 % Se grafica la primera posicion de los electrones.
 hold on
 plot(XYcentros(electrones(1,1),1),XYcentros(electrones(1,1),2),'ro','markersize',13)
+%plot(XYcentros(electrones(2,1),1),XYcentros(electrones(2,1),2),'ro','markersize',13)
 hold off
 pause
 
 
 
 
-while(1)
-% Empieza el ciclo de pasos
-%for p=1:pasos
-
-% Se obtiene el grano actual
-G_actual = electrones(1,1);
-% Funcion para detectar todos los vecinos
-% de G_actual.
-G_vecinos = vecinos_ind(G_actual,tri);
-G_vecinos
-
-% Funcion que selecciona de manera preferencial
-% el grano siguiente en funcion de las coordenadas
-% Y de los vecinos. Existe mayor probabilidad de
-% avanzar hacia un grano que se encuentre arriba.
-G_siguiente = siguiente_preferencia(G_vecinos,XYcentros)
-
-% Se asigna el numero de grano obtenido por la funcion
-% 'siguiente_preferencia' a la posicion de los electrones.
-electrones(1,1) = G_siguiente;
-
-
-
-
-voronoi(XYcentros(:,1),XYcentros(:,2))
-hold on
-plot(XYcentros(electrones(1,1),1),XYcentros(electrones(1,1),2),'ro','markersize',13)
-hold off
-
 
 
 
 contador=0;
+pasos=0;
 
-
-%auxiliar = electrones;
-
+while(1)
+% Empieza el ciclo de pasos
+%for p=1:pasos
 
 
 
 for i=1:length(electrones)
 
-A=find(electrones(1,1)==borde_superior);
+% Se obtiene el grano actual
+G_actual = electrones(i)
+% Funcion para detectar todos los vecinos
+% de G_actual.
+G_vecinos = vecinos_ind(G_actual,tri);
+%%%G_vecinos
+
+
+
+% Si el límite logra ser conductor, el electron
+% se moverá y entrará a la función 'siguiente_preferencia'
+
+if %COMPLETAR
+      % Funcion que selecciona de manera preferencial
+      % el grano siguiente en funcion de las coordenadas
+      % Y de los vecinos. Existe mayor probabilidad de
+      % avanzar hacia un grano que se encuentre arriba.
+      G_siguiente = siguiente_preferencia(G_actual,G_vecinos,XYcentros)
+      % Se asigna el numero de grano obtenido por la funcion
+      % 'siguiente_preferencia' a la posicion de los electrones.
+      electrones(i) = G_siguiente;
+endif
+
+
+
+
+endfor
+
+
+%{ quitar comentario para ver graficamente
+
+%voronoi(XYcentros(:,1),XYcentros(:,2))
+%hold on
+%for j=1:length(electrones)
+%plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
+%endfor
+%hold off
+%pause
+
+%}
+
+
+
+
+
+%
+
+
+
+% Revisar los electrones que puedan estar
+% en el borde superior.
+for i=1:length(electrones)
+
+A=find(electrones(i)==borde_superior);
+
+
 
 if(isempty(A)==0)
-contador = contador + 1;
+  electrones(i)=[];
+  contador++;
 endif
 
 endfor
 
-contador
-
+pasos++;
 
 %B=find(electrones(1,1)==borde_superior);
 
-if(contador==1)
+if(isempty(electrones)==1)
   break
 endif
 
 
 
 
-pause
+
 % Termina el ciclo de pasos.
 %endfor
 endwhile
 
+contador
 
 %{
 
