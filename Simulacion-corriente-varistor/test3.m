@@ -2,9 +2,14 @@ clc;
 clear all;
 close all;
 
-fib = ones (1, 10);
-k = 0;
-do
-  k++;
-  r = 10 + k
-until (k == 100)
+
+
+while(1)
+  r=randi([0 10],1,1)
+    if(r==0)
+      printf("el numero cero\n")
+      break
+    endif
+    printf("el numero no es cero\n")
+  pause
+endwhile

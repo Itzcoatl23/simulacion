@@ -152,8 +152,11 @@ hold off
 pause
 
 
+
+
+while(1)
 % Empieza el ciclo de pasos
-for p=1:pasos
+%for p=1:pasos
 
 % Se obtiene el grano actual
 G_actual = electrones(1,1);
@@ -197,17 +200,26 @@ A=find(electrones(1,1)==borde_superior);
 
 if(isempty(A)==0)
 contador = contador + 1;
-
 endif
 
 endfor
 
 contador
 
+
+%B=find(electrones(1,1)==borde_superior);
+
+if(contador==1)
+  break
+endif
+
+
+
+
 pause
 % Termina el ciclo de pasos.
-endfor
-
+%endfor
+endwhile
 
 
 %{
