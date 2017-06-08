@@ -156,7 +156,7 @@ axis([0 espacio 0 espacio])
 
 
 
-
+pause
 
 
 
@@ -168,14 +168,14 @@ axis([0 espacio 0 espacio])
 
 % matriz que guarda el grano en el que se encuentran
 % los electrones. Cada fila es un electron.
-electrones = [4]
+electrones = [4,2]
 
 % Se grafica la primera posicion de los electrones.
 hold on
 plot(XYcentros(electrones(1,1),1),XYcentros(electrones(1,1),2),'ro','markersize',13)
 %plot(XYcentros(electrones(2,1),1),XYcentros(electrones(2,1),2),'ro','markersize',13)
 hold off
-
+pause
 
 
 
@@ -217,20 +217,23 @@ G_vecinos = vecinos_ind(G_actual,tri);
       electrones(i) = G_siguiente;
 %endif
 
+
+
+
 endfor
 
 
+%{ quitar comentario para ver graficamente
 
+%voronoi(XYcentros(:,1),XYcentros(:,2))
+%hold on
+%for j=1:length(electrones)
+%plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
+%endfor
+%hold off
+%pause
 
-voronoi(XYcentros(:,1),XYcentros(:,2))
-hold on
-for j=1:length(electrones)
-plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
-endfor
-hold off
-pause
-
-
+%}
 
 
 
