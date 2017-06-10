@@ -8,7 +8,7 @@ s = 20;
 V_b = 1;
 
 % Rango para ver toda la curva de 0 a 2
-V = [0:0.01:2];
+V = [0:0.01:1.25];
        %V=1.5;
 
 
