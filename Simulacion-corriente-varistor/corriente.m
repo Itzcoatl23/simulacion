@@ -159,12 +159,13 @@ pause
 
 % matriz que guarda el grano en el que se encuentran
 % los electrones. Cada fila es un electron.
-electrones = [4]
+electrones = [4;3;1;4;5;3;1;2]
 
 % Se grafica la primera posicion de los electrones.
 hold on
-plot(XYcentros(electrones(1,1),1),XYcentros(electrones(1,1),2),'ro','markersize',13)
-%plot(XYcentros(electrones(2,1),1),XYcentros(electrones(2,1),2),'ro','markersize',13)
+for j=1:length(electrones)
+plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
+endfor
 hold off
 pause
 
@@ -174,8 +175,18 @@ pause
 
 
 
+
+
+
+
+
+
+
+
+
 contador=0;
 pasos=0;
+Fa = ones([length(electrones),1])
 
 while(1)
 % Empieza el ciclo de pasos
@@ -184,9 +195,11 @@ while(1)
 
 
 for i=1:length(electrones)
+    if(Fa(i,1)==1)
+
 
 % Se obtiene el grano actual
-G_actual = electrones(i)
+G_actual = electrones(i);
 % Funcion para detectar todos los vecinos
 % de G_actual.
 G_vecinos = vecinos_ind(G_actual,tri);
@@ -197,40 +210,33 @@ G_vecinos = vecinos_ind(G_actual,tri);
 % Si el límite logra ser conductor, el electron
 % se moverá y entrará a la función 'siguiente_preferencia'
 
-if %COMPLETAR
+%if %COMPLETAR
       % Funcion que selecciona de manera preferencial
       % el grano siguiente en funcion de las coordenadas
       % Y de los vecinos. Existe mayor probabilidad de
       % avanzar hacia un grano que se encuentre arriba.
-      G_siguiente = siguiente_preferencia(G_actual,G_vecinos,XYcentros)
+      G_siguiente = siguiente_preferencia(G_actual,G_vecinos,XYcentros);
       % Se asigna el numero de grano obtenido por la funcion
       % 'siguiente_preferencia' a la posicion de los electrones.
       electrones(i) = G_siguiente;
-endif
+%endif
 
 
 
-
+    endif
 endfor
 
 
-%{ quitar comentario para ver graficamente
-
-%voronoi(XYcentros(:,1),XYcentros(:,2))
-%hold on
-%for j=1:length(electrones)
-%plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
-%endfor
-%hold off
-%pause
-
-%}
 
 
+voronoi(XYcentros(:,1),XYcentros(:,2))
+hold on
+for j=1:length(electrones)
+plot(XYcentros(electrones(j,1),1),XYcentros(electrones(j,1),2),'ro','markersize',13)
+endfor
+hold off
+pause(0.6)
 
-
-
-%
 
 
 
@@ -238,13 +244,12 @@ endfor
 % en el borde superior.
 for i=1:length(electrones)
 
-A=find(electrones(i)==borde_superior);
+A=find(electrones(i,1)==borde_superior);
 
 
 
 if(isempty(A)==0)
-  electrones(i)=[];
-  contador++;
+  Fa(i,1)=0;
 endif
 
 endfor
@@ -253,7 +258,7 @@ pasos++;
 
 %B=find(electrones(1,1)==borde_superior);
 
-if(isempty(electrones)==1)
+if(sum(Fa)==0)
   break
 endif
 
@@ -265,8 +270,7 @@ endif
 %endfor
 endwhile
 
-contador
-
+pasos
 %{
 
 PARA GENERAR TODOS LOS VECINOS DE TODOS LOS GRANOS
